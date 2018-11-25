@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>list</title>
+        <link rel="stylesheet" href="/css/bootstrap.css" />
+	    <script src="/js/bootstrap.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>edit 計算内容を更新する</h1>
+      <div class="pull-right">
+        <a class="btn btn-link" href="/calcs">一覧画面へ</a>
+      </div>
+      <form th:action="@{/calcs/{id}(id=*{id})}" th:method="put" th:object="${calc}">
+      	<div>
+          <label>ID</label>
+          <p th:text="*{id}"></p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">検索ID</label>
+          <input class="form-control" type="text" th:field="*{searchid}" maxlength="255" />
+        </div>
+        <div class="form-group">
+          <label class="control-label">検索名</label>
+          <input class="form-control" type="text" th:field="*{searchname}" maxlength="255" />
+        </div>
+        <div class="form-group">
+          <label class="control-label">加減数</label>
+          <input class="form-control" type="number" th:field="*{calcvalue}" required maxlength="10" />
+        </div>
+        <div class="form-group">
+          <label class="control-label">計算対象</label>
+          <input class="form-control" type="number" th:field="*{calctarget}" required min="0" max="4" maxlength="1" />
+          0:日,1:月,2:年,3:ヶ月前or後の月末,4:ヶ月前or後の月初
+        </div>
+        <button class="btn btn-default" type="submit">更新</button>
+      </form>
+    </div>
+  </body>
+</html>
