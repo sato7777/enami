@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>list</title>
+        <link rel="stylesheet" href="/css/bootstrap.css" />
+	    <script src="/js/bootstrap.js"></script>
+    </head>
+    <body>
+      <div class="container">
+        <h1 th:text="${title}"></h1>
+        
+        <form th:action="@{/calcs/search}" th:method="post">
+          <div class="form-group">
+            <label class="control-label">基準年月日を入力してください</label>
+            <input type="date" name="basedate" required />
+          </div>
+          <input class="btn btn-default" type="submit" value="計算" />
+          <a class="btn btn-default" href="/calcs">topへ(基準年月日クリア)</a>
+        </form>
+		<br>
+		<label class="control-label">入力した基準年月日</label>
+		<p th:text="${inputBasedate}"></p>
+		<br><br>
+        <table class="table">
+        	<thead>
+        	<tr>
+        		<th>NO</th>
+        		<th>検索ID</th>
+        		<th>検索名</th>
+        		<th>加減数</th>
+        		<th>加減対象code</th>
+        		<th>加減対象</th>
+        		<th>基準年月日</th>
+        		<th>計算結果</th>
+        	</tr>
+        	</thead>
+        	<tbody>
+            <tr th:each="calc:${calclist}" th:object="${calc}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{searchid}"></td>
+                <td th:text="*{searchname}"></td>
+                <td th:text="*{calcvalue}"></td>
+                <td th:text="*{calctarget}"></td>
+                <td th:text="*{calctargetname}"></td>
+                <td th:text="*{basedate}"></td>
+                <td th:text="*{calcdate}"></td>
+                <td><a class="btn btn-default btn-xs" th:href="@{/calcs/{id}/edit(id=*{id})}">編集</a></td>
+	            <td>
+	              <form th:action="@{/calcs/{id}(id=*{id})}" th:method="delete">
+	                <input class="btn btn-default btn-xs" type="submit" value="削除" />
+	              </form>
+	            </td>
+            </tr>
+            </tbody>
+        </table>
+		<a class="btn btn-default" href="/calcs/new">新規作成</a>
+      </div>
+    </body>
+</html>
